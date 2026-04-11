@@ -198,6 +198,70 @@ SEARXNG_UWSGI_THREADS=6    # Increase threads per worker
 
 3. **Disable Debug Mode**: Edit `searxng/settings.yml` and set `debug: false`
 
+## 🎨 Oryks Custom Theme
+
+This deployment uses the **Oryks** custom theme — a minimalist, privacy-first design that replaces the default SearXNG appearance with:
+
+- Off-white background (`#f4f5f4`) with white panels
+- Muted green accent (`#2f6f4e`) for links, buttons, and highlights
+- System font stack — no web fonts
+- Hard edges (no border-radius, no drop shadows)
+- Compact typography and clean result layout
+- Full dark-mode support (respects browser preference via SearXNG's `theme-dark` / `theme-black` class)
+
+### Theme Files
+
+```
+searxng/themes/oryks/
+├── theme.toml              # Theme metadata
+├── static/
+│   ├── css/oryks.css       # All Oryks styles
+│   └── img/oryks.png       # Logo (auto-downloaded from oryks.org at build time)
+└── templates/
+    ├── base.html           # Base layout (injects oryks.css, keeps all SearXNG blocks)
+    ├── index.html          # Homepage — shows Oryks logo above the search form
+    └── search.html         # Search-bar header on results pages — shows Oryks logo
+```
+
+The `Dockerfile` clones the upstream `simple` theme into `oryks/` at build time, rewrites all intra-theme template paths, then overlays the three template overrides above. This keeps every other SearXNG page (preferences, about, stats, …) fully functional without needing to copy every template.
+
+### Replacing the Logo
+
+1. Put your new logo at `searxng/themes/oryks/static/img/oryks.png` (or any web-accessible URL).
+2. If serving from a URL, update the `RUN wget …` line in `Dockerfile` to point at your URL.
+3. Rebuild and redeploy — the logo is automatically shown at 40 px height in the search bar and 80 px on the homepage.
+
+**Changing the logo height** — edit `--oryks-logo-height` in `searxng/themes/oryks/static/css/oryks.css`:
+
+```css
+:root {
+  --oryks-logo-height: 40px; /* header logo */
+}
+/* homepage logo is 2× that value by default */
+```
+
+### Adjusting Theme Colours
+
+All design tokens live in the `:root` block at the top of `oryks.css`:
+
+```css
+:root {
+  --oryks-bg:          #f4f5f4;  /* page background  */
+  --oryks-panel:       #ffffff;  /* card / panel bg  */
+  --oryks-text:        #1f2328;  /* body text        */
+  --oryks-muted:       #57606a;  /* secondary text   */
+  --oryks-border:      #d0d7de;  /* borders          */
+  --oryks-accent:      #2f6f4e;  /* muted green      */
+  --oryks-accent-dark: #24563c;  /* hover green      */
+}
+```
+
+Change any value and redeploy; no template edits needed.
+
+### Switching Back to the Default Theme
+
+In `searxng/settings.yml`, change `default_theme: oryks` to `default_theme: simple`.
+
 ## 📁 Project Structure
 
 ```
@@ -209,7 +273,8 @@ searxng-docker/
 └── searxng/                # SearXNG configuration
     ├── settings.yml        # Main SearXNG settings
     ├── limiter.toml        # Rate limiting configuration
-    └── uwsgi.ini           # Auto-generated WSGI config
+    ├── uwsgi.ini           # Auto-generated WSGI config
+    └── themes/oryks/       # Custom Oryks theme (CSS, logo, template overrides)
 ```
 
 ## 🤝 Contributing
