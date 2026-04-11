@@ -164,6 +164,11 @@
  * sxng-ltr.min.css uses @media (prefers-color-scheme:dark){:root.theme-auto{...}}
  * We need the exact same selector inside the same media query so that our
  * file (loaded after sxng-ltr) wins by cascade order at equal specificity.
+ *
+ * NOTE: These values intentionally mirror the :root.theme-dark block above.
+ * CSS has no native mixins, so both blocks must be kept in sync when colours
+ * are updated. The dark accent (#3a8a61) and all other dark variables below
+ * should always match those in :root.theme-dark / :root.theme-black.
  */
 @media (prefers-color-scheme: dark) {
   :root.theme-auto {
