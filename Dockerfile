@@ -50,10 +50,11 @@ RUN sed -i \
 # 5. Copy oryks static assets (CSS + logo)
 COPY ./searxng/themes/oryks/static/ /usr/local/searxng/searx/static/themes/oryks/
 
-# 6. Attempt to download the production logo from oryks.org; fall back to the
-#    bundled placeholder PNG if the build environment has no internet access.
+# 6. Attempt to download the production logo (white version) from oryks.org;
+#    fall back to the bundled placeholder PNG if the build environment has no
+#    internet access.
 RUN wget -q --timeout=10 -O /usr/local/searxng/searx/static/themes/oryks/img/oryks.png \
-      https://www.oryks.org/oryks.png \
+      https://www.oryks.org/output-onlinepngtools.png \
     || echo "Logo download skipped – using bundled placeholder"
 # ─────────────────────────────────────────────────────────────────────────────
 
