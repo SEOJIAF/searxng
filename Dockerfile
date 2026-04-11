@@ -35,8 +35,15 @@ RUN cp -r /usr/local/searxng/searx/templates/simple \
     && mkdir -p /usr/local/searxng/searx/static/themes/oryks/css \
                 /usr/local/searxng/searx/static/themes/oryks/img
 
-# 4. Copy oryks template overrides (base.html, index.html, search.html)
+# 4. Copy oryks template overrides (index.html, search.html — base.html is
+#    inherited from simple and only patched below to inject the theme CSS).
 COPY ./searxng/themes/oryks/templates/ /usr/local/searxng/searx/templates/oryks/
+
+# 4b. Inject the oryks CSS override <link> into the inherited base.html so the
+#     theme is purely a recolor of simple rather than a structural rewrite.
+RUN sed -i \
+      's|</head>|  <link rel="stylesheet" href="{{ url_for('\''static'\'', filename='\''css/oryks.css'\'') }}" type="text/css">\n</head>|' \
+      /usr/local/searxng/searx/templates/oryks/base.html
 
 # 5. Copy oryks static assets (CSS + logo)
 COPY ./searxng/themes/oryks/static/ /usr/local/searxng/searx/static/themes/oryks/
