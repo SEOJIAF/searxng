@@ -280,6 +280,16 @@ button[aria-label="Close"],
   height: calc(var(--oryks-logo-height) * 2);
 }
 
+/* ── Index page: hide the redundant logo inside the search bar ──
+ * index.html already shows the logo prominently in .index .title.
+ * The search form (simple_search.html) also contains #search_logo
+ * which duplicates the logo and pushes it to the side of the search
+ * input, creating a confusing double-logo layout on the home page.
+ */
+.index #search_logo {
+  display: none;
+}
+
 /* ── Suppress visited-link purple — keep links green ── */
 a:visited {
   color: var(--color-url-font);
