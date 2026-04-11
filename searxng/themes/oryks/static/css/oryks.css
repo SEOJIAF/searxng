@@ -18,8 +18,8 @@
 /* ── Light-mode: override simple theme colour variables ── */
 :root {
   /* Backgrounds */
-  --color-base-background:           #f4f5f4;
-  --color-base-background-mobile:    #f4f5f4;
+  --color-base-background:           #f8f9fa;
+  --color-base-background-mobile:    #f8f9fa;
   --color-header-background:         #ffffff;
   --color-footer-background:         #ffffff;
   --color-sidebar-background:        #ffffff;
@@ -236,24 +236,37 @@
   }
 }
 
-/* ── Hard edges — remove border-radius everywhere ── */
-.search_box,
-#send_search,
-#clear_search,
-#q,
-button,
-input,
-select,
-.btn,
-.result,
-article.result,
-.autocomplete,
-#backToTop a,
-.toolkit-dialog,
-.modal,
-details,
-summary {
+/* ── Hard edges — remove border-radius on every element ── */
+* {
   border-radius: 0 !important;
+}
+
+/* ── Ensure all primary/search buttons use the muted-green accent ──
+ * CSS variables are only consumed by elements that reference them;
+ * these rules force the colour on every interactive element directly.
+ */
+button,
+input[type="submit"],
+input[type="button"],
+input[type="reset"],
+.btn {
+  background-color: var(--color-btn-background) !important;
+  color:            var(--color-btn-font)        !important;
+  border-color:     var(--color-btn-background)  !important;
+}
+
+/* Secondary / outline / cancel variants should not be forced green */
+.btn-secondary,
+.btn-outline-secondary,
+.btn-light,
+.btn-outline-light,
+.btn-link,
+button[data-bs-dismiss],
+button[aria-label="Close"],
+#clear_search {
+  background-color: transparent !important;
+  color:            var(--color-base-font) !important;
+  border-color:     var(--color-search-border) !important;
 }
 
 /* ── Logo sizing ── */
