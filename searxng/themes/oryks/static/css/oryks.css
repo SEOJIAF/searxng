@@ -291,7 +291,7 @@ button[aria-label="Close"],
 }
 
 .index .title .oryks-site-name {
-  font-size: calc(var(--oryks-logo-height) * 1);
+  font-size: var(--oryks-logo-height);
   font-weight: 600;
   color: var(--color-base-font);
   line-height: 1;
