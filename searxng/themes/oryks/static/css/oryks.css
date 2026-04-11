@@ -88,9 +88,14 @@
   --oryks-logo-height: 40px;
 }
 
-/* ── Dark-mode overrides ── */
-html.theme-dark,
-html.theme-black {
+/* ── Dark-mode overrides ──
+ * Use :root.theme-dark (specificity 0,2,0) to match and beat the
+ * :root.theme-dark rule in sxng-ltr.min.css (also 0,2,0 but loads
+ * earlier), ensuring our override wins via cascade order.
+ * html.theme-dark would only be (0,1,1) which loses to :root.theme-dark.
+ */
+:root.theme-dark,
+:root.theme-black {
   --color-base-background:           #0d1117;
   --color-base-background-mobile:    #0d1117;
   --color-header-background:         #161b22;
@@ -153,6 +158,77 @@ html.theme-black {
   --color-url-font:                  #3a8a61;
   --color-toolkit-checkbox-onoff-on-mark-background: #3a8a61;
   --color-toolkit-checkbox-input-border:             #3a8a61;
+}
+
+/* ── Auto dark-mode: match sxng-ltr.min.css @media rule specificity ──
+ * sxng-ltr.min.css uses @media (prefers-color-scheme:dark){:root.theme-auto{...}}
+ * We need the exact same selector inside the same media query so that our
+ * file (loaded after sxng-ltr) wins by cascade order at equal specificity.
+ */
+@media (prefers-color-scheme: dark) {
+  :root.theme-auto {
+    --color-base-background:           #0d1117;
+    --color-base-background-mobile:    #0d1117;
+    --color-header-background:         #161b22;
+    --color-footer-background:         #161b22;
+    --color-sidebar-background:        #161b22;
+    --color-search-background:         #161b22;
+    --color-result-background:         #161b22;
+    --color-result-keyvalue-col-table: #0d1117;
+    --color-result-keyvalue-odd:       #0d1117;
+    --color-result-keyvalue-even:      #161b22;
+    --color-answer-background:         #161b22;
+    --color-autocomplete-background:   #161b22;
+    --color-autocomplete-background-hover: #0d1117;
+    --color-backtotop-background:      #161b22;
+    --color-toolkit-dialog-background: #161b22;
+    --color-toolkit-select-background: #1c2128;
+    --color-toolkit-checkbox-onoff-off-background: #30363d;
+    --color-toolkit-checkbox-onoff-on-background:  #30363d;
+    --color-toolkit-checkbox-label-background:     #1c2128;
+
+    --color-header-border:             #30363d;
+    --color-footer-border:             #30363d;
+    --color-sidebar-border:            #30363d;
+    --color-search-border:             #30363d;
+    --color-result-border:             #30363d;
+    --color-result-search-url-border:  #30363d;
+    --color-backtotop-border:          #30363d;
+    --color-autocomplete-border:       #30363d;
+    --color-toolkit-dialog-border:     #30363d;
+    --color-toolkit-select-border:     #30363d;
+    --color-toolkit-tabs-section-border: #30363d;
+    --color-toolkit-engine-tooltip-border: #30363d;
+    --color-toolkit-checkbox-label-border: #30363d;
+
+    --color-search-shadow:             none;
+    --color-autocomplete-shadow:       none;
+
+    --color-base-font:                 #e6edf3;
+    --color-base-font-rgb:             230, 237, 243;
+    --color-sidebar-font:              #e6edf3;
+    --color-search-font:               #e6edf3;
+    --color-result-url-font:           #8b949e;
+    --color-result-search-url-font:    #8b949e;
+    --color-result-publishdate-font:   #8b949e;
+    --color-result-engines-font:       #8b949e;
+    --color-result-description-highlight-font: #e6edf3;
+    --color-answer-font:               #e6edf3;
+    --color-backtotop-font:            #8b949e;
+    --color-toolkit-input-text-font:   #e6edf3;
+    --color-settings-engine-description-font: #8b949e;
+
+    --color-btn-background:            #3a8a61;
+    --color-btn-font:                  #ffffff;
+    --color-search-background-hover:   #3a8a61;
+    --color-categories-item-selected-font:   #3a8a61;
+    --color-categories-item-border-selected: #3a8a61;
+    --color-result-link-font:          #3a8a61;
+    --color-result-link-font-highlight: #3a8a61;
+    --color-url-font:                  #3a8a61;
+    --color-toolkit-checkbox-onoff-on-mark-background: #3a8a61;
+    --color-toolkit-checkbox-input-border:             #3a8a61;
+  }
 }
 
 /* ── Hard edges — remove border-radius everywhere ── */
