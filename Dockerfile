@@ -31,9 +31,11 @@ RUN cp -r /usr/local/searxng/searx/templates/simple \
          -e "s|\"simple/|\"oryks/|g" \
          -e "s|get_result_template('simple',|get_result_template('oryks',|g" \
        {} + \
-    # 3. Create oryks static asset directories
-    && mkdir -p /usr/local/searxng/searx/static/themes/oryks/css \
-                /usr/local/searxng/searx/static/themes/oryks/img
+    # 3. Copy the full simple theme static assets as the oryks base so all
+    #    compiled CSS/JS files (sxng-ltr.min.css, etc.) are available at the
+    #    expected themes/oryks/ paths; oryks-specific files overwrite below.
+    && cp -r /usr/local/searxng/searx/static/themes/simple \
+             /usr/local/searxng/searx/static/themes/oryks
 
 # 4. Copy oryks template overrides (index.html, search.html — base.html is
 #    inherited from simple and only patched below to inject the theme CSS).
