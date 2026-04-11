@@ -1,0 +1,481 @@
+/*
+ * Oryks theme for SearXNG
+ *
+ * Design language: minimalism, muted green accent, system fonts,
+ * no shadows, hard edges, compact typography, minimal hover effects.
+ *
+ * To change the logo height, update --oryks-logo-height.
+ * To change the accent colour, update --oryks-accent and --oryks-accent-dark.
+ */
+
+/* ── CSS Variables ── */
+:root {
+  --oryks-bg:           #f4f5f4;
+  --oryks-panel:        #ffffff;
+  --oryks-text:         #1f2328;
+  --oryks-muted:        #57606a;
+  --oryks-border:       #d0d7de;
+  --oryks-accent:       #2f6f4e;  /* muted green */
+  --oryks-accent-dark:  #24563c;
+  --oryks-radius:       0px;      /* hard edges */
+  --oryks-logo-height:  40px;     /* configurable logo height */
+}
+
+/* Dark-mode support (respects SearXNG's theme-dark / theme-black class) */
+html.theme-dark,
+html.theme-black {
+  --oryks-bg:     #0d1117;
+  --oryks-panel:  #161b22;
+  --oryks-text:   #e6edf3;
+  --oryks-muted:  #8b949e;
+  --oryks-border: #30363d;
+}
+
+/* ── Reset / Base ── */
+html,
+body {
+  background: var(--oryks-bg);
+  color: var(--oryks-text);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+a {
+  color: var(--oryks-accent);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--oryks-border);
+  margin: 12px 0;
+}
+
+/* ── Logo ── */
+.oryks-logo {
+  height: var(--oryks-logo-height);
+  width: auto;
+  display: block;
+  image-rendering: auto;
+}
+
+/* ── Header / Top bar ── */
+#links_on_top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 14px;
+  border-bottom: 1px solid var(--oryks-border);
+  background: var(--oryks-panel);
+  position: relative;
+}
+
+#links_on_top a {
+  color: var(--oryks-muted);
+  font-size: 13px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+#links_on_top a:hover {
+  color: var(--oryks-text);
+  text-decoration: none;
+}
+#links_on_top a svg {
+  width: 15px;
+  height: 15px;
+}
+
+/* ── Index / Homepage ── */
+#main_index {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 48px 14px 24px;
+}
+
+.index {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.index .title {
+  text-align: center;
+}
+
+.index .title a {
+  display: inline-block;
+  border: none;
+  outline: none;
+}
+
+.index .title img.oryks-logo {
+  height: calc(var(--oryks-logo-height) * 2); /* larger on homepage */
+  width: auto;
+}
+
+/* ── Search Box ── */
+#search {
+  width: 100%;
+}
+
+#search_header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--oryks-panel);
+  border-bottom: 1px solid var(--oryks-border);
+  padding: 8px 12px;
+}
+
+#search_logo {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  border: none;
+}
+
+#search_logo img.oryks-logo {
+  height: var(--oryks-logo-height);
+  width: auto;
+}
+
+/* Keep the SVG wordmark (fallback) reasonably sized */
+#search_logo svg {
+  height: var(--oryks-logo-height);
+  width: auto;
+}
+
+#search_view {
+  flex: 1;
+}
+
+.search_box {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--oryks-border);
+  border-radius: var(--oryks-radius);
+  background: var(--oryks-panel);
+  overflow: hidden;
+}
+
+.search_box input[type="text"] {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 8px 10px;
+  font-size: 14px;
+  background: transparent;
+  color: var(--oryks-text);
+  font-family: inherit;
+}
+
+.search_box button {
+  border: none;
+  border-left: 1px solid var(--oryks-border);
+  background: transparent;
+  color: var(--oryks-muted);
+  padding: 8px 10px;
+  cursor: pointer;
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+}
+.search_box button:hover {
+  background: var(--oryks-bg);
+  color: var(--oryks-text);
+}
+
+#send_search {
+  background: var(--oryks-accent) !important;
+  color: #fff !important;
+  border-left: 1px solid var(--oryks-accent) !important;
+}
+#send_search:hover {
+  background: var(--oryks-accent-dark) !important;
+  border-left-color: var(--oryks-accent-dark) !important;
+}
+
+/* ── Category tabs ── */
+#categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 6px 12px;
+  background: var(--oryks-panel);
+  border-bottom: 1px solid var(--oryks-border);
+}
+
+#categories label,
+#categories a {
+  font-size: 12px;
+  padding: 3px 8px;
+  border: 1px solid var(--oryks-border);
+  border-radius: var(--oryks-radius);
+  color: var(--oryks-muted);
+  cursor: pointer;
+  user-select: none;
+  background: var(--oryks-bg);
+}
+#categories input[type="checkbox"]:checked + label,
+#categories label.selected,
+#categories a.selected {
+  border-color: var(--oryks-accent);
+  color: var(--oryks-accent);
+  background: var(--oryks-panel);
+}
+
+/* ── Search filters bar ── */
+.search_filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 6px 12px;
+  border-bottom: 1px solid var(--oryks-border);
+  background: var(--oryks-bg);
+  font-size: 12px;
+}
+
+/* ── Results layout ── */
+#results {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 0 16px;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 12px 14px;
+  align-items: start;
+}
+
+@media (max-width: 860px) {
+  #results {
+    grid-template-columns: 1fr;
+  }
+  #sidebar {
+    order: -1;
+  }
+}
+
+#urls {
+  grid-column: 1;
+}
+
+#sidebar {
+  grid-column: 2;
+  font-size: 13px;
+}
+
+@media (max-width: 860px) {
+  #sidebar {
+    grid-column: 1;
+  }
+}
+
+/* ── Individual result ── */
+article.result {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--oryks-border);
+}
+article.result:last-child {
+  border-bottom: none;
+}
+
+article.result h3 {
+  font-size: 15px;
+  font-weight: 500;
+  margin: 0 0 2px;
+  line-height: 1.3;
+}
+article.result h3 a {
+  color: var(--oryks-text);
+}
+article.result h3 a:hover {
+  color: var(--oryks-accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+}
+
+article.result .url_header {
+  font-size: 12px;
+  color: var(--oryks-muted);
+  margin-bottom: 4px;
+}
+
+article.result .content {
+  font-size: 13px;
+  color: var(--oryks-muted);
+  line-height: 1.45;
+  margin: 0;
+}
+
+/* ── Sidebar ── */
+#sidebar .sidebar-collapsible,
+#sidebar details {
+  border: 1px solid var(--oryks-border);
+  margin-bottom: 10px;
+  padding: 8px 10px;
+  background: var(--oryks-panel);
+}
+
+#sidebar summary {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--oryks-muted);
+  cursor: pointer;
+  list-style: none;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+#result_count {
+  font-size: 11px;
+  color: var(--oryks-muted);
+  margin: 0 0 10px;
+}
+
+/* ── Pagination ── */
+#pagination {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 14px;
+  border-top: 1px solid var(--oryks-border);
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+#pagination button {
+  border: 1px solid var(--oryks-border);
+  background: var(--oryks-panel);
+  color: var(--oryks-text);
+  padding: 6px 12px;
+  font-size: 13px;
+  cursor: pointer;
+  border-radius: var(--oryks-radius);
+  font-family: inherit;
+}
+#pagination button:hover {
+  border-color: var(--oryks-accent);
+  color: var(--oryks-accent);
+}
+
+/* ── Answers / Infoboxes ── */
+#answers {
+  background: var(--oryks-panel);
+  border: 1px solid var(--oryks-accent);
+  padding: 10px 12px;
+  margin-bottom: 12px;
+  font-size: 14px;
+}
+
+/* ── Preferences / About pages ── */
+#main_preferences,
+#main_stats {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 24px 14px;
+}
+
+.preferences_back a,
+#main_preferences a {
+  color: var(--oryks-accent);
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+th, td {
+  border: 1px solid var(--oryks-border);
+  padding: 6px 10px;
+  font-size: 13px;
+  text-align: left;
+}
+th {
+  background: var(--oryks-bg);
+  font-weight: 600;
+}
+
+/* ── Footer ── */
+footer {
+  border-top: 1px solid var(--oryks-border);
+  padding: 12px 14px;
+  font-size: 12px;
+  color: var(--oryks-muted);
+  text-align: center;
+  background: var(--oryks-panel);
+}
+footer a {
+  color: var(--oryks-muted);
+}
+footer a:hover {
+  color: var(--oryks-text);
+}
+
+/* ── Error / notification dialogs ── */
+.dialog-error {
+  border: 1px solid #cf222e;
+  background: #fff8f8;
+  padding: 8px 12px;
+  margin: 8px 14px;
+  font-size: 13px;
+}
+html.theme-dark .dialog-error,
+html.theme-black .dialog-error {
+  background: #1a0a0a;
+}
+
+/* ── Back-to-top ── */
+#backToTop {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}
+#backToTop a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: var(--oryks-panel);
+  border: 1px solid var(--oryks-border);
+  color: var(--oryks-muted);
+  border-radius: var(--oryks-radius);
+}
+#backToTop a:hover {
+  border-color: var(--oryks-accent);
+  color: var(--oryks-accent);
+}
+
+/* ── Autocomplete ── */
+.autocomplete {
+  position: absolute;
+  z-index: 100;
+  background: var(--oryks-panel);
+  border: 1px solid var(--oryks-border);
+  border-top: none;
+  width: 100%;
+  max-width: 600px;
+}
+.autocomplete ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.autocomplete li {
+  padding: 6px 10px;
+  font-size: 13px;
+  cursor: pointer;
+}
+.autocomplete li:hover,
+.autocomplete li.selected {
+  background: var(--oryks-bg);
+  color: var(--oryks-accent);
+}

@@ -1,0 +1,12 @@
+{% extends "oryks/base.html" %}
+{% from 'oryks/icons.html' import icon_big %}
+{% block content %}
+<div class="index">
+    <div class="title">
+        <a href="{{ url_for('index') }}">
+            <img class="oryks-logo" src="{{ url_for('static', filename='img/oryks.png') }}" alt="{{ instance_name }}" />
+        </a>
+    </div>
+    {% include 'oryks/simple_search.html' %}
+</div>
+{% endblock %}
