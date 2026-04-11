@@ -1,481 +1,192 @@
 /*
  * Oryks theme for SearXNG
  *
- * Design language: minimalism, muted green accent, system fonts,
- * no shadows, hard edges, compact typography, minimal hover effects.
+ * This stylesheet overrides the simple theme's CSS custom properties and adds
+ * minimal targeted tweaks to achieve the Oryks design language:
+ *   - Off-white background, muted-green accent, near-black text
+ *   - Hard edges (border-radius: 0)
+ *   - No shadows
+ *   - System font stack, compact typography
+ *   - No gradients or animations
+ *
+ * All structural layout is inherited from the base simple theme (sxng-ltr.min.css).
  *
  * To change the logo height, update --oryks-logo-height.
- * To change the accent colour, update --oryks-accent and --oryks-accent-dark.
+ * To change the accent colour, update the --color-btn-background group below.
  */
 
-/* ── CSS Variables ── */
+/* ── Light-mode: override simple theme colour variables ── */
 :root {
-  --oryks-bg:           #f4f5f4;
-  --oryks-panel:        #ffffff;
-  --oryks-text:         #1f2328;
-  --oryks-muted:        #57606a;
-  --oryks-border:       #d0d7de;
-  --oryks-accent:       #2f6f4e;  /* muted green */
-  --oryks-accent-dark:  #24563c;
-  --oryks-radius:       0px;      /* hard edges */
-  --oryks-logo-height:  40px;     /* configurable logo height */
+  /* Backgrounds */
+  --color-base-background:           #f4f5f4;
+  --color-base-background-mobile:    #f4f5f4;
+  --color-header-background:         #ffffff;
+  --color-footer-background:         #ffffff;
+  --color-sidebar-background:        #ffffff;
+  --color-search-background:         #ffffff;
+  --color-result-background:         #ffffff;
+  --color-result-keyvalue-col-table: #f4f5f4;
+  --color-result-keyvalue-odd:       #f4f5f4;
+  --color-result-keyvalue-even:      #ffffff;
+  --color-answer-background:         #ffffff;
+  --color-autocomplete-background:   #ffffff;
+  --color-autocomplete-background-hover: #f4f5f4;
+  --color-backtotop-background:      #ffffff;
+  --color-toolkit-dialog-background: #ffffff;
+  --color-toolkit-select-background: #e8eaea;
+  --color-toolkit-checkbox-onoff-off-background: #d0d7de;
+  --color-toolkit-checkbox-onoff-on-background:  #d0d7de;
+  --color-toolkit-checkbox-label-background:     #e8eaea;
+
+  /* Borders */
+  --color-header-border:             #d0d7de;
+  --color-footer-border:             #d0d7de;
+  --color-sidebar-border:            #d0d7de;
+  --color-search-border:             #d0d7de;
+  --color-result-border:             #d0d7de;
+  --color-result-search-url-border:  #d0d7de;
+  --color-backtotop-border:          #d0d7de;
+  --color-autocomplete-border:       #d0d7de;
+  --color-toolkit-dialog-border:     #d0d7de;
+  --color-toolkit-select-border:     #d0d7de;
+  --color-toolkit-tabs-section-border: #d0d7de;
+  --color-toolkit-engine-tooltip-border: #d0d7de;
+  --color-toolkit-checkbox-label-border: #d0d7de;
+
+  /* Shadows — removed for flat / brutalist-adjacent look */
+  --color-search-shadow:             none;
+  --color-autocomplete-shadow:       none;
+
+  /* Text */
+  --color-base-font:                 #1f2328;
+  --color-base-font-rgb:             31, 35, 40;
+  --color-sidebar-font:              #1f2328;
+  --color-search-font:               #1f2328;
+  --color-result-url-font:           #57606a;
+  --color-result-search-url-font:    #57606a;
+  --color-result-publishdate-font:   #57606a;
+  --color-result-engines-font:       #57606a;
+  --color-result-description-highlight-font: #1f2328;
+  --color-answer-font:               #1f2328;
+  --color-backtotop-font:            #57606a;
+  --color-toolkit-input-text-font:   #1f2328;
+  --color-settings-engine-description-font: #57606a;
+
+  /* Accent / primary action — muted green */
+  --color-btn-background:            #2f6f4e;
+  --color-btn-font:                  #ffffff;
+  --color-search-background-hover:   #2f6f4e;
+  --color-categories-item-selected-font:   #2f6f4e;
+  --color-categories-item-border-selected: #2f6f4e;
+  --color-result-link-font:          #2f6f4e;
+  --color-result-link-font-highlight: #2f6f4e;
+  --color-url-font:                  #2f6f4e;
+  --color-toolkit-checkbox-onoff-on-mark-background: #2f6f4e;
+  --color-toolkit-checkbox-input-border:             #2f6f4e;
+
+  /* Logo height — used by .oryks-logo rules below */
+  --oryks-logo-height: 40px;
 }
 
-/* Dark-mode support (respects SearXNG's theme-dark / theme-black class) */
+/* ── Dark-mode overrides ── */
 html.theme-dark,
 html.theme-black {
-  --oryks-bg:     #0d1117;
-  --oryks-panel:  #161b22;
-  --oryks-text:   #e6edf3;
-  --oryks-muted:  #8b949e;
-  --oryks-border: #30363d;
+  --color-base-background:           #0d1117;
+  --color-base-background-mobile:    #0d1117;
+  --color-header-background:         #161b22;
+  --color-footer-background:         #161b22;
+  --color-sidebar-background:        #161b22;
+  --color-search-background:         #161b22;
+  --color-result-background:         #161b22;
+  --color-result-keyvalue-col-table: #0d1117;
+  --color-result-keyvalue-odd:       #0d1117;
+  --color-result-keyvalue-even:      #161b22;
+  --color-answer-background:         #161b22;
+  --color-autocomplete-background:   #161b22;
+  --color-autocomplete-background-hover: #0d1117;
+  --color-backtotop-background:      #161b22;
+  --color-toolkit-dialog-background: #161b22;
+  --color-toolkit-select-background: #1c2128;
+  --color-toolkit-checkbox-onoff-off-background: #30363d;
+  --color-toolkit-checkbox-onoff-on-background:  #30363d;
+  --color-toolkit-checkbox-label-background:     #1c2128;
+
+  --color-header-border:             #30363d;
+  --color-footer-border:             #30363d;
+  --color-sidebar-border:            #30363d;
+  --color-search-border:             #30363d;
+  --color-result-border:             #30363d;
+  --color-result-search-url-border:  #30363d;
+  --color-backtotop-border:          #30363d;
+  --color-autocomplete-border:       #30363d;
+  --color-toolkit-dialog-border:     #30363d;
+  --color-toolkit-select-border:     #30363d;
+  --color-toolkit-tabs-section-border: #30363d;
+  --color-toolkit-engine-tooltip-border: #30363d;
+  --color-toolkit-checkbox-label-border: #30363d;
+
+  --color-search-shadow:             none;
+  --color-autocomplete-shadow:       none;
+
+  --color-base-font:                 #e6edf3;
+  --color-base-font-rgb:             230, 237, 243;
+  --color-sidebar-font:              #e6edf3;
+  --color-search-font:               #e6edf3;
+  --color-result-url-font:           #8b949e;
+  --color-result-search-url-font:    #8b949e;
+  --color-result-publishdate-font:   #8b949e;
+  --color-result-engines-font:       #8b949e;
+  --color-result-description-highlight-font: #e6edf3;
+  --color-answer-font:               #e6edf3;
+  --color-backtotop-font:            #8b949e;
+  --color-toolkit-input-text-font:   #e6edf3;
+  --color-settings-engine-description-font: #8b949e;
+
+  /* Keep muted-green accent in dark mode */
+  --color-btn-background:            #3a8a61;
+  --color-btn-font:                  #ffffff;
+  --color-search-background-hover:   #3a8a61;
+  --color-categories-item-selected-font:   #3a8a61;
+  --color-categories-item-border-selected: #3a8a61;
+  --color-result-link-font:          #3a8a61;
+  --color-result-link-font-highlight: #3a8a61;
+  --color-url-font:                  #3a8a61;
+  --color-toolkit-checkbox-onoff-on-mark-background: #3a8a61;
+  --color-toolkit-checkbox-input-border:             #3a8a61;
 }
 
-/* ── Reset / Base ── */
-html,
-body {
-  background: var(--oryks-bg);
-  color: var(--oryks-text);
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial,
-    sans-serif;
-  font-size: 14px;
-  line-height: 1.4;
+/* ── Hard edges — remove border-radius everywhere ── */
+.search_box,
+#send_search,
+#clear_search,
+#q,
+button,
+input,
+select,
+.btn,
+.result,
+article.result,
+.autocomplete,
+#backToTop a,
+.toolkit-dialog,
+.modal,
+details,
+summary {
+  border-radius: 0 !important;
 }
 
-a {
-  color: var(--oryks-accent);
-  text-decoration: none;
-}
-a:hover {
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-}
-
-hr {
-  border: 0;
-  border-top: 1px solid var(--oryks-border);
-  margin: 12px 0;
-}
-
-/* ── Logo ── */
+/* ── Logo sizing ── */
 .oryks-logo {
   height: var(--oryks-logo-height);
   width: auto;
   display: block;
-  image-rendering: auto;
-}
-
-/* ── Header / Top bar ── */
-#links_on_top {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 14px;
-  border-bottom: 1px solid var(--oryks-border);
-  background: var(--oryks-panel);
-  position: relative;
-}
-
-#links_on_top a {
-  color: var(--oryks-muted);
-  font-size: 13px;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-}
-#links_on_top a:hover {
-  color: var(--oryks-text);
-  text-decoration: none;
-}
-#links_on_top a svg {
-  width: 15px;
-  height: 15px;
-}
-
-/* ── Index / Homepage ── */
-#main_index {
-  max-width: 680px;
-  margin: 0 auto;
-  padding: 48px 14px 24px;
-}
-
-.index {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-}
-
-.index .title {
-  text-align: center;
-}
-
-.index .title a {
-  display: inline-block;
-  border: none;
-  outline: none;
 }
 
 .index .title img.oryks-logo {
-  height: calc(var(--oryks-logo-height) * 2); /* larger on homepage */
-  width: auto;
+  height: calc(var(--oryks-logo-height) * 2);
 }
 
-/* ── Search Box ── */
-#search {
-  width: 100%;
-}
-
-#search_header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  background: var(--oryks-panel);
-  border-bottom: 1px solid var(--oryks-border);
-  padding: 8px 12px;
-}
-
-#search_logo {
-  flex-shrink: 0;
-  display: inline-flex;
-  align-items: center;
-  text-decoration: none;
-  border: none;
-}
-
-#search_logo img.oryks-logo {
-  height: var(--oryks-logo-height);
-  width: auto;
-}
-
-/* Keep the SVG wordmark (fallback) reasonably sized */
-#search_logo svg {
-  height: var(--oryks-logo-height);
-  width: auto;
-}
-
-#search_view {
-  flex: 1;
-}
-
-.search_box {
-  display: flex;
-  align-items: center;
-  border: 1px solid var(--oryks-border);
-  border-radius: var(--oryks-radius);
-  background: var(--oryks-panel);
-  overflow: hidden;
-}
-
-.search_box input[type="text"] {
-  flex: 1;
-  border: none;
-  outline: none;
-  padding: 8px 10px;
-  font-size: 14px;
-  background: transparent;
-  color: var(--oryks-text);
-  font-family: inherit;
-}
-
-.search_box button {
-  border: none;
-  border-left: 1px solid var(--oryks-border);
-  background: transparent;
-  color: var(--oryks-muted);
-  padding: 8px 10px;
-  cursor: pointer;
-  border-radius: 0;
-  display: flex;
-  align-items: center;
-}
-.search_box button:hover {
-  background: var(--oryks-bg);
-  color: var(--oryks-text);
-}
-
-#send_search {
-  background: var(--oryks-accent) !important;
-  color: #fff !important;
-  border-left: 1px solid var(--oryks-accent) !important;
-}
-#send_search:hover {
-  background: var(--oryks-accent-dark) !important;
-  border-left-color: var(--oryks-accent-dark) !important;
-}
-
-/* ── Category tabs ── */
-#categories {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
-  padding: 6px 12px;
-  background: var(--oryks-panel);
-  border-bottom: 1px solid var(--oryks-border);
-}
-
-#categories label,
-#categories a {
-  font-size: 12px;
-  padding: 3px 8px;
-  border: 1px solid var(--oryks-border);
-  border-radius: var(--oryks-radius);
-  color: var(--oryks-muted);
-  cursor: pointer;
-  user-select: none;
-  background: var(--oryks-bg);
-}
-#categories input[type="checkbox"]:checked + label,
-#categories label.selected,
-#categories a.selected {
-  border-color: var(--oryks-accent);
-  color: var(--oryks-accent);
-  background: var(--oryks-panel);
-}
-
-/* ── Search filters bar ── */
-.search_filters {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  padding: 6px 12px;
-  border-bottom: 1px solid var(--oryks-border);
-  background: var(--oryks-bg);
-  font-size: 12px;
-}
-
-/* ── Results layout ── */
-#results {
-  display: grid;
-  grid-template-columns: 1fr 280px;
-  gap: 0 16px;
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 12px 14px;
-  align-items: start;
-}
-
-@media (max-width: 860px) {
-  #results {
-    grid-template-columns: 1fr;
-  }
-  #sidebar {
-    order: -1;
-  }
-}
-
-#urls {
-  grid-column: 1;
-}
-
-#sidebar {
-  grid-column: 2;
-  font-size: 13px;
-}
-
-@media (max-width: 860px) {
-  #sidebar {
-    grid-column: 1;
-  }
-}
-
-/* ── Individual result ── */
-article.result {
-  padding: 12px 0;
-  border-bottom: 1px solid var(--oryks-border);
-}
-article.result:last-child {
-  border-bottom: none;
-}
-
-article.result h3 {
-  font-size: 15px;
-  font-weight: 500;
-  margin: 0 0 2px;
-  line-height: 1.3;
-}
-article.result h3 a {
-  color: var(--oryks-text);
-}
-article.result h3 a:hover {
-  color: var(--oryks-accent);
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-}
-
-article.result .url_header {
-  font-size: 12px;
-  color: var(--oryks-muted);
-  margin-bottom: 4px;
-}
-
-article.result .content {
-  font-size: 13px;
-  color: var(--oryks-muted);
-  line-height: 1.45;
-  margin: 0;
-}
-
-/* ── Sidebar ── */
-#sidebar .sidebar-collapsible,
-#sidebar details {
-  border: 1px solid var(--oryks-border);
-  margin-bottom: 10px;
-  padding: 8px 10px;
-  background: var(--oryks-panel);
-}
-
-#sidebar summary {
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--oryks-muted);
-  cursor: pointer;
-  list-style: none;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-}
-
-#result_count {
-  font-size: 11px;
-  color: var(--oryks-muted);
-  margin: 0 0 10px;
-}
-
-/* ── Pagination ── */
-#pagination {
-  display: flex;
-  justify-content: space-between;
-  padding: 12px 14px;
-  border-top: 1px solid var(--oryks-border);
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-#pagination button {
-  border: 1px solid var(--oryks-border);
-  background: var(--oryks-panel);
-  color: var(--oryks-text);
-  padding: 6px 12px;
-  font-size: 13px;
-  cursor: pointer;
-  border-radius: var(--oryks-radius);
-  font-family: inherit;
-}
-#pagination button:hover {
-  border-color: var(--oryks-accent);
-  color: var(--oryks-accent);
-}
-
-/* ── Answers / Infoboxes ── */
-#answers {
-  background: var(--oryks-panel);
-  border: 1px solid var(--oryks-accent);
-  padding: 10px 12px;
-  margin-bottom: 12px;
-  font-size: 14px;
-}
-
-/* ── Preferences / About pages ── */
-#main_preferences,
-#main_stats {
-  max-width: 860px;
-  margin: 0 auto;
-  padding: 24px 14px;
-}
-
-.preferences_back a,
-#main_preferences a {
-  color: var(--oryks-accent);
-}
-
-table {
-  border-collapse: collapse;
-  width: 100%;
-}
-th, td {
-  border: 1px solid var(--oryks-border);
-  padding: 6px 10px;
-  font-size: 13px;
-  text-align: left;
-}
-th {
-  background: var(--oryks-bg);
-  font-weight: 600;
-}
-
-/* ── Footer ── */
-footer {
-  border-top: 1px solid var(--oryks-border);
-  padding: 12px 14px;
-  font-size: 12px;
-  color: var(--oryks-muted);
-  text-align: center;
-  background: var(--oryks-panel);
-}
-footer a {
-  color: var(--oryks-muted);
-}
-footer a:hover {
-  color: var(--oryks-text);
-}
-
-/* ── Error / notification dialogs ── */
-.dialog-error {
-  border: 1px solid #cf222e;
-  background: #fff8f8;
-  padding: 8px 12px;
-  margin: 8px 14px;
-  font-size: 13px;
-}
-html.theme-dark .dialog-error,
-html.theme-black .dialog-error {
-  background: #1a0a0a;
-}
-
-/* ── Back-to-top ── */
-#backToTop {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-}
-#backToTop a {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  background: var(--oryks-panel);
-  border: 1px solid var(--oryks-border);
-  color: var(--oryks-muted);
-  border-radius: var(--oryks-radius);
-}
-#backToTop a:hover {
-  border-color: var(--oryks-accent);
-  color: var(--oryks-accent);
-}
-
-/* ── Autocomplete ── */
-.autocomplete {
-  position: absolute;
-  z-index: 100;
-  background: var(--oryks-panel);
-  border: 1px solid var(--oryks-border);
-  border-top: none;
-  width: 100%;
-  max-width: 600px;
-}
-.autocomplete ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-.autocomplete li {
-  padding: 6px 10px;
-  font-size: 13px;
-  cursor: pointer;
-}
-.autocomplete li:hover,
-.autocomplete li.selected {
-  background: var(--oryks-bg);
-  color: var(--oryks-accent);
+/* ── Suppress visited-link purple — keep links green ── */
+a:visited {
+  color: var(--color-url-font);
 }
