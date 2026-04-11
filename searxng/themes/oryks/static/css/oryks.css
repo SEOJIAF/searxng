@@ -241,21 +241,21 @@
   border-radius: 0 !important;
 }
 
-/* ── Ensure all primary/search buttons use the muted-green accent ──
- * CSS variables are only consumed by elements that reference them;
- * these rules force the colour on every interactive element directly.
+/* ── All interactive elements: transparent background, green text/border ──
+ * The muted-green accent is expressed through text and border colour only —
+ * no solid green fill anywhere in the UI.
  */
 button,
 input[type="submit"],
 input[type="button"],
 input[type="reset"],
 .btn {
-  background-color: var(--color-btn-background) !important;
-  color:            var(--color-btn-font)        !important;
-  border-color:     var(--color-btn-background)  !important;
+  background-color: transparent !important;
+  color:            var(--color-btn-background) !important;
+  border-color:     var(--color-btn-background) !important;
 }
 
-/* Secondary / outline / cancel variants should not be forced green */
+/* Cancel / dismiss / clear variants use the base text colour */
 .btn-secondary,
 .btn-outline-secondary,
 .btn-light,
@@ -273,11 +273,28 @@ button[aria-label="Close"],
 .oryks-logo {
   height: var(--oryks-logo-height);
   width: auto;
-  display: block;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* ── Index page: logo larger, centered, next to instance name ── */
+.index .title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6em;
+  margin-bottom: 1rem;
 }
 
 .index .title img.oryks-logo {
   height: calc(var(--oryks-logo-height) * 2);
+}
+
+.index .title .oryks-site-name {
+  font-size: calc(var(--oryks-logo-height) * 1);
+  font-weight: 600;
+  color: var(--color-base-font);
+  line-height: 1;
 }
 
 /* ── Index page: hide the redundant logo inside the search bar ──
